@@ -4,20 +4,24 @@ import './App.css';
 function App() {
   const [board, setBoard] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [player, setPlayer] = useState(1);
+  const [computer, setComputer] = useState(1);
+  const [gamemode, setGamemode] = useState(null);
   const [message, setMessage] = useState(null);
 
+
   function check(index) {
-    
-    if (player === 1) {
-      const updatedBoard = [...board];
-      updatedBoard[index] = 1;
-      setBoard(updatedBoard);
-      setPlayer(2);
-    } else {
-      const updatedBoard = [...board];
-      updatedBoard[index] = 2;
-      setBoard(updatedBoard);
-      setPlayer(1);
+    if (board[index] === 0) { // Überprüfen ob Feld nicht belegt ist
+      if (player === 1) {
+        const updatedBoard = [...board];
+        updatedBoard[index] = 1;
+        setBoard(updatedBoard);
+        setPlayer(2);
+      } else {
+        const updatedBoard = [...board];
+        updatedBoard[index] = 2;
+        setBoard(updatedBoard);
+        setPlayer(1);
+      }
     }
   }
 
@@ -42,7 +46,6 @@ function App() {
 useEffect(() => {
 
     if (checkForWinner(1)) {
-      
       console.log("player1 wins")
       setMessage("Player 1 won.")
     } else if (checkForWinner(2)) {
@@ -54,7 +57,14 @@ useEffect(() => {
 
     return (
 
-      <><div className='App'>
+      <>
+      <div className='dropdown'>
+        <select>
+          <option value='menschvsmensch'>Mensch gegen Mensch</option>
+          <option value='menschvscomputer'>Mensch gegen Computer</option>
+        </select>
+      </div>
+      <div className='App'>
         {board.map((tile, index) => (
           <button
             className='tiles'

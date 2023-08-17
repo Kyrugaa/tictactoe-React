@@ -27,3 +27,9 @@
 .message {
   text-align: center;
 }
+
+.dropdown {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
